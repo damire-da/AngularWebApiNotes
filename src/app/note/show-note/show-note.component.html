@@ -1,0 +1,62 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-right m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+(click)="addClick()"
+data-backdrop="static" data-keyboard="false">
+    Add Note
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeClick()"></button>
+        </div>
+        <div class="modal-body">
+          <app-add-edit-note [note]="note" *ngIf="ActivateAddEditNoteComp"></app-add-edit-note>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>NoteId</th>
+            <th>Title</th>
+            <th>Date Created</th>
+            <th>Date Changed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of NoteList">
+            <td>{{dataItem.NoteId}}</td>
+            <td>{{dataItem.Title}}</td>
+            <td>{{dataItem.DateCreated}}</td>
+            <td>{{dataItem.DateChanged}}</td>
+            <td>
+                <button type="button" class="btn btn-light mr-1"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
+(click)="editClick(dataItem)"
+data-backdrop="static" data-keyboard="false">
+                    Edit
+                </button>
+                <button type="button" class="btn btn-light mr-1">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
