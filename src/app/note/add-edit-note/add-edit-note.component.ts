@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Data } from '@angular/router';
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -11,21 +12,22 @@ export class AddEditNoteComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   @Input() note: any;
-  NoteId: Number=0;
-  Title: string="";
-  NoteText: string="";
+  NoteId: 0;
+  Title: "";
+  TextNote: "";
+
 
   ngOnInit(): void {
     this.NoteId = this.note.NoteId;
     this.Title = this.note.Title;
-    this.NoteText = this.note.NoteText;
+    this.TextNote = this.note.TextNote;
   }
 
   addNote() {
     var val = {
       NoteId: this.NoteId,
       Title: this.Title,
-      NoteText: this.NoteText
+      TextNote: this.TextNote
     };
 
     this.service.addNote(val).subscribe(res => {
@@ -37,7 +39,7 @@ export class AddEditNoteComponent implements OnInit {
     var val = {
       NoteId: this.NoteId,
       Title: this.Title,
-      NoteText: this.NoteText
+      TextNote: this.TextNote
     };
 
     this.service.updateNote(val).subscribe(res => {

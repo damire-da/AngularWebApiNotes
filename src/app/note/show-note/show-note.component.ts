@@ -14,7 +14,11 @@ export class ShowNoteComponent implements OnInit {
 
   ModalTitle: string = "";
   note: any;
-  ActivateAddEditNoteComp:boolean=false;
+  ActivateAddEditNoteComp: boolean = false;
+  
+  NoteIdFilter: string = "";
+  NoteNameFilter: string = "";
+  NoteListWithoutFilter: any[];
 
   ngOnInit(): void {
     this.refreshNoteList();
@@ -41,9 +45,44 @@ export class ShowNoteComponent implements OnInit {
     this.refreshNoteList();
   }
 
+  deleteClick(item: any) {
+    if (confirm("Are you sure?")) {
+      this.service.deleteNote(item.NoteId).subscribe(data => {
+        alert(data.toString());
+        this.refreshNoteList();
+      });
+    }
+
+  }
+
   refreshNoteList() {
     this.service.getNoteList().subscribe(data => {
       this.NoteList = data;
+      this.NoteListWithoutFilter = data;
     });
+  }
+
+  FilterFn() {
+    var NoteIdFilter = this.NoteIdFilter;
+    var NoteNameFilter = this.NoteNameFilter;
+
+    this.NoteList = this.NoteListWithoutFilter.filter(function (el) {
+      return el.NoteId.toString().toLowerCase().includes(
+        NoteIdFilter.toString().trim().toLowerCase()
+      ) &&
+        el.Title.toString().toLowerCase().includes(
+        NoteNameFilter.toString().trim().toLowerCase()
+        ) 
+    });
+  }
+
+  sortResult(prop: any, asc: boolean) {
+    this.NoteList = this.NoteListWithoutFilter.sort(function (a, b) {
+      if (asc) {
+        return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+      } else {
+        return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+      }
+    })
   }
 }

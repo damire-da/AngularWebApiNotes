@@ -20,14 +20,14 @@ export class SharedService {
   }
 
   addNote(val: any) {
-    return this.http.post(this.APIUrl + '/AddNote', val);
+    return this.http.post(this.APIUrl + '/Note', val);
   }
 
   updateNote(val: any) {
-    return this.http.put(this.APIUrl + '/Update', val);
+    return this.http.put(this.APIUrl + '/Note', val);
   }
 
   deleteNote(val: any) {
-    return this.http.delete(this.APIUrl + '/Delete/' + val);
+    return this.http.delete(this.APIUrl + '/Note/' + val);
   }
 }
